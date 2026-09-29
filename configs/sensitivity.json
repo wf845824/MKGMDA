@@ -1,0 +1,39 @@
+{
+ "note": "One-at-a-time sensitivity on HMDD v3.2 (Supplementary Fig. S3): preset coremda plus one override.",
+ "grid": {
+  "--degree-dropout": [
+   0.0,
+   0.1,
+   0.2,
+   0.3,
+   0.4
+  ],
+  "--knn-k": [
+   5,
+   10,
+   20,
+   30,
+   50
+  ],
+  "--gamma-cl": [
+   0.05,
+   0.1,
+   0.2,
+   0.4,
+   0.8
+  ],
+  "--recovery-weight": [
+   0.025,
+   0.05,
+   0.1,
+   0.2,
+   0.4
+  ],
+  "--hidden": [
+   64,
+   128,
+   256,
+   512
+  ]
+ }
+}

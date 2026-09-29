@@ -1,0 +1,15 @@
+{
+  "mesh": "desc2026.gz",
+  "delta": 0.5,
+  "v32_check": {
+    "v32_diseases": 374,
+    "v32_matched": 374,
+    "pearson_offdiag_matched": 0.9581945700803857,
+    "fraction_within_1e-3": 0.8609052199968459
+  },
+  "n_mirna": 1816,
+  "n_disease": 2319,
+  "n_associations": 31296,
+  "descriptor_coverage": 0.7084950409659336,
+  "coverage_with_supplementary": 0.8050884001724882
+}
