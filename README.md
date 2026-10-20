@@ -1,10 +1,12 @@
-# CoReMDA
+# MKGMDA
 
-Code and data for **"CoReMDA: Contrastive Multi-View Learning with Missing-Information Recovery for Cold-Start
-miRNA-Disease Association Prediction"**.
+Code and data for **"MKGMDA: multi-level knowledge-guided graph learning for miRNA–disease association prediction in new diseases and miRNAs"**.
+
+MKGMDA stands for **Multi-level Knowledge-Guided graph learning for miRNA–Disease Association prediction**.
+Project repository: <https://github.com/wf845824/MKGMDA>.
 
 A new miRNA or disease has no known association, so its association-derived inputs (association neighbours,
-functional similarity, GIP kernel, degree) are missing or uninformative. CoReMDA recovers the missing local representation and degree of
+functional similarity, GIP kernel, degree) are missing or uninformative. MKGMDA estimates the missing local representation and degree of
 such a *cold* entity from an intrinsic graph built from precursor sequence or MeSH similarity and gene-level knowledge,
 uses the recovered degree explicitly in a degree-corrected decoder, and scores pairs of two cold entities with an
 association-free branch.
@@ -36,14 +38,14 @@ Each folder also contains the association-free inputs used by the model:
   (DisGeNET v7 disease genes), both computed over the HumanNet-XN network by `scripts/build_gene_knowledge.py`.
   No HMDD association enters these matrices.
 
-CoReMDA computes every association-derived input from the training associations of each fold.
+MKGMDA computes every association-derived input from the training associations of each fold.
 
 ## Reproducing the results
 
 Every model variant of the paper is a preset in `configs/presets.json`; `coremda` is the reported model.
 
 ```bash
-# CoReMDA in the main comparison (Table 3): 3 datasets x 4 scenarios, five test folds each
+# MKGMDA in the main comparison (Table 3): 3 datasets x 4 scenarios, five test folds each
 for ds in hmdd_v20 hmdd_v32 hmdd_v40; do
   for sp in random colddisease coldmirna coldboth; do
     python run_coremda.py --preset coremda --dataset $ds --split $sp --eval test --save-scores \
@@ -51,12 +53,12 @@ for ds in hmdd_v20 hmdd_v32 hmdd_v40; do
   done
 done
 
-# ablation (Table 4 and Supplementary Table S2), e.g. without dual prediction
+# ablation (Table 4 and Supplementary Table S3), e.g. without dual prediction
 python run_coremda.py --preset no_dual_prediction --dataset hmdd_v32 --split colddisease --output results/ablation/no_dcp.json
 # the model without gene knowledge (row "w/o gene knowledge")
 python run_coremda.py --preset no_gene_knowledge --dataset hmdd_v32 --split coldboth --output results/ablation/no_gene.json
 
-# parameter sensitivity (Supplementary Fig. S3): the preset plus one override, grid in configs/sensitivity.json
+# parameter sensitivity (Supplementary Fig. S1): the preset plus one override, grid in configs/sensitivity.json
 python run_coremda.py --preset coremda --knn-k 10 --dataset hmdd_v32 --split coldmirna --output results/sens/k10.json
 
 # Development splits carved from the HMDD v3.2 training folds
