@@ -1,4 +1,5 @@
-results/
+results/*
+!results/case_studies/
 build/
 external_data/
 __pycache__/

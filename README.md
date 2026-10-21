@@ -87,6 +87,9 @@ python run_case_study.py --mode novel --disease "Breast Neoplasms" --output resu
 python analysis/case_evidence.py --ranked results/case/colon_holdout.csv --disease colon --output results/case/colon_evidence.csv
 ```
 
+The complete rankings of both case studies, with the evidence for every candidate, are provided as CSV files in
+[`results/case_studies/`](results/case_studies/) (column descriptions in its README).
+
 `analysis/case_evidence.py` reads third-party files that we do not redistribute; place them in
 `external_data/case_evidence/`:
 
