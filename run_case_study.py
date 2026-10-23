@@ -1,4 +1,4 @@
-"""Case studies on HMDD v3.2 with the reported model (preset coremda).
+"""Case studies on HMDD v3.2 with the reported model (preset mkgmda).
 
   --mode holdout : all HMDD v3.2 associations of the disease are removed, every association-derived input is rebuilt,
                    and the disease is excluded from the unlabeled training pairs; all miRNAs are ranked (new disease).
@@ -20,12 +20,12 @@ from pathlib import Path
 
 import numpy as np
 
-import run_coremda as R
-from coremda.data import unlabeled_pool
-from coremda.metrics import sigmoid
-from coremda.preprocessing import load_benchmark
-from coremda.similarity import load_intrinsic
-from coremda.training import score_pairs
+import run_mkgmda as R
+from mkgmda.data import unlabeled_pool
+from mkgmda.metrics import sigmoid
+from mkgmda.preprocessing import load_benchmark
+from mkgmda.similarity import load_intrinsic
+from mkgmda.training import score_pairs
 
 
 def main() -> None:
@@ -36,7 +36,7 @@ def main() -> None:
     p.add_argument("--output", required=True, help="ranked candidates (.csv)")
     p.add_argument("--device", default="cuda:0")
     own = p.parse_args()
-    args = R.parse_args(["--preset", "coremda", "--dataset", "hmdd_v32", "--output", own.output, "--device", own.device])
+    args = R.parse_args(["--preset", "mkgmda", "--dataset", "hmdd_v32", "--output", own.output, "--device", own.device])
 
     bench = load_benchmark(args.data_root, "hmdd_v32")
     sequence, semantic = load_intrinsic(Path(args.data_root), bench, args.external)

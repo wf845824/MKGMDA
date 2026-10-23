@@ -1,7 +1,7 @@
 {
  "note": "Exact command-line options of every model variant in the paper (Table 3 and Table 4). Options given after --preset override it.",
  "presets": {
-  "coremda": [
+  "mkgmda": [
    "--loss",
    "nnpu",
    "--no-seq-cold",

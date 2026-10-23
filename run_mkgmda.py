@@ -1,8 +1,8 @@
-"""Train and evaluate CoReMDA under the strict protocol (all association-derived inputs rebuilt per fold).
+"""Train and evaluate MKGMDA under the strict protocol (all association-derived inputs rebuilt per fold).
 
-  python run_coremda.py --preset coremda --dataset hmdd_v32 --split colddisease --eval test --output results/v32_cd.json
+  python run_mkgmda.py --preset mkgmda --dataset hmdd_v32 --split colddisease --eval test --output results/v32_cd.json
 
---preset expands to the exact options of a model variant in configs/presets.json (coremda = the reported model;
+--preset expands to the exact options of a model variant in configs/presets.json (mkgmda = the reported model;
 the other presets are the ablations of Table 4); options given after it override the preset (sensitivity analysis).
 --eval dev evaluates on the development split carved from each training fold; --eval test on the five test folds.
 """
@@ -17,12 +17,12 @@ from pathlib import Path
 
 import numpy as np
 
-from coremda.data import association_matrix, labeled_pairs
-from coremda.metrics import binary_metrics
-from coremda.preprocessing import build_fold_inputs, build_fold_views, load_benchmark
-from coremda.similarity import load_intrinsic, profile_aware_integration
-from coremda.splits import COLD_SIDES, dev_carve, folds_for
-from coremda.training import TrainingConfig, score_pairs, train_model
+from mkgmda.data import association_matrix, labeled_pairs
+from mkgmda.metrics import binary_metrics
+from mkgmda.preprocessing import build_fold_inputs, build_fold_views, load_benchmark
+from mkgmda.similarity import load_intrinsic, profile_aware_integration
+from mkgmda.splits import COLD_SIDES, dev_carve, folds_for
+from mkgmda.training import TrainingConfig, score_pairs, train_model
 
 ROOT = Path(__file__).resolve().parent
 PRESETS = json.loads((ROOT / "configs" / "presets.json").read_text())["presets"]

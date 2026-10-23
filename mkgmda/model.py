@@ -1,4 +1,4 @@
-"""CoReMDA model: multi-view encoders, dual prediction, degree propagation, and the degree-corrected decoder."""
+"""MKGMDA model: multi-view encoders, dual prediction, degree propagation, and the degree-corrected decoder."""
 
 from __future__ import annotations
 
@@ -198,7 +198,7 @@ class MetaFusion(nn.Module):
         return fused, stacked, view_weights
 
 
-class CoReMDA(nn.Module):
+class MKGMDA(nn.Module):
     def __init__(
         self,
         n_mirna: int,

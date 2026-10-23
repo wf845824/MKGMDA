@@ -14,8 +14,8 @@ association-free branch.
 ## Installation
 
 ```bash
-conda create -n coremda python=3.10
-conda activate coremda
+conda create -n mkgmda python=3.10
+conda activate mkgmda
 pip install -r requirements.txt
 ```
 
@@ -32,7 +32,7 @@ Commands use `cuda:0` by default; pass `--device cpu` to run on CPU.
 Each folder also contains the association-free inputs used by the model:
 
 * `mirna_sequence_similarity.npy`: cosine similarity of 3-mer frequency vectors of miRBase precursors
-  (`coremda.similarity.sequence_similarity` applied to `data/mirbase_hairpin.fa`, the hairpin file downloaded from
+  (`mkgmda.similarity.sequence_similarity` applied to `data/mirbase_hairpin.fa`, the hairpin file downloaded from
   <https://www.mirbase.org/> in September 2026);
 * `gene_knowledge_similarity.npz`: gene-knowledge similarities K^m (miRTarBase functional targets) and K^d
   (DisGeNET v7 disease genes), both computed over the HumanNet-XN network by `scripts/build_gene_knowledge.py`.
@@ -42,27 +42,27 @@ MKGMDA computes every association-derived input from the training associations o
 
 ## Reproducing the results
 
-Every model variant of the paper is a preset in `configs/presets.json`; `coremda` is the reported model.
+Every model variant of the paper is a preset in `configs/presets.json`; `mkgmda` is the reported model.
 
 ```bash
 # MKGMDA in the main comparison (Table 3): 3 datasets x 4 scenarios, five test folds each
 for ds in hmdd_v20 hmdd_v32 hmdd_v40; do
   for sp in random colddisease coldmirna coldboth; do
-    python run_coremda.py --preset coremda --dataset $ds --split $sp --eval test --save-scores \
+    python run_mkgmda.py --preset mkgmda --dataset $ds --split $sp --eval test --save-scores \
         --output results/main/${ds}__${sp}.json
   done
 done
 
 # ablation (Table 4 and Supplementary Table S3), e.g. without dual prediction
-python run_coremda.py --preset no_dual_prediction --dataset hmdd_v32 --split colddisease --output results/ablation/no_dcp.json
+python run_mkgmda.py --preset no_dual_prediction --dataset hmdd_v32 --split colddisease --output results/ablation/no_dcp.json
 # the model without gene knowledge (row "w/o gene knowledge")
-python run_coremda.py --preset no_gene_knowledge --dataset hmdd_v32 --split coldboth --output results/ablation/no_gene.json
+python run_mkgmda.py --preset no_gene_knowledge --dataset hmdd_v32 --split coldboth --output results/ablation/no_gene.json
 
 # parameter sensitivity (Supplementary Fig. S1): the preset plus one override, grid in configs/sensitivity.json
-python run_coremda.py --preset coremda --knn-k 10 --dataset hmdd_v32 --split coldmirna --output results/sens/k10.json
+python run_mkgmda.py --preset mkgmda --knn-k 10 --dataset hmdd_v32 --split coldmirna --output results/sens/k10.json
 
 # Development splits carved from the HMDD v3.2 training folds
-python run_coremda.py --preset coremda --dataset hmdd_v32 --split coldboth --eval dev --output results/dev/cb.json
+python run_mkgmda.py --preset mkgmda --dataset hmdd_v32 --split coldboth --eval dev --output results/dev/cb.json
 ```
 
 Scenarios: `random` (five-fold split of the known associations), `colddisease` / `coldmirna` (all pairs of a held-out
@@ -111,14 +111,14 @@ python scripts/build_hmdd_v40.py         # external_data/: MeSH 2026 XML (mesh/)
 ```
 
 HumanNet v2: <https://www.inetbio.org/humannetv2/>; DisGeNET v7: <https://www.disgenet.com/>; MeSH: <https://www.nlm.nih.gov/mesh/>.
-The sequence similarity is rebuilt with `coremda.similarity.load_hairpins` and `sequence_similarity` from `data/mirbase_hairpin.fa`.
+The sequence similarity is rebuilt with `mkgmda.similarity.load_hairpins` and `sequence_similarity` from `data/mirbase_hairpin.fa`.
 
 ## Repository layout
 
 ```
-coremda/          model (model.py), training loop (training.py), graphs and sampling (data.py),
+mkgmda/          model (model.py), training loop (training.py), graphs and sampling (data.py),
                   fold-wise inputs (preprocessing.py), splits (splits.py), intrinsic similarities (similarity.py)
-run_coremda.py    training and evaluation under the strict protocol
+run_mkgmda.py    training and evaluation under the strict protocol
 run_case_study.py case studies
 analysis/         case-study evidence
 configs/          presets of all model variants; sensitivity grid

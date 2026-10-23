@@ -1,4 +1,4 @@
-"""Graph construction and pair-sampling utilities for CoReMDA."""
+"""Graph construction and pair-sampling utilities for MKGMDA."""
 
 from __future__ import annotations
 

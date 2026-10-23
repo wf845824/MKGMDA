@@ -1,5 +1,5 @@
 {
- "note": "One-at-a-time sensitivity on HMDD v3.2 (Supplementary Fig. S3): preset coremda plus one override.",
+ "note": "One-at-a-time sensitivity on HMDD v3.2 (Additional file 1: Fig. S1): preset mkgmda plus one override.",
  "grid": {
   "--degree-dropout": [
    0.0,

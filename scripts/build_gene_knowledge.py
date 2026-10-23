@@ -22,7 +22,7 @@ from numba import njit, prange, set_num_threads
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from build_hmdd_v40 import load_descriptors, load_supplementary, norm  # noqa: E402
-from coremda.preprocessing import load_benchmark  # noqa: E402
+from mkgmda.preprocessing import load_benchmark  # noqa: E402
 
 CODE = Path(__file__).resolve().parents[1]  # repository root
 OUT = CODE / "build" / "gene_knowledge"  # gene lists and name mappings (provenance)

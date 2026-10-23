@@ -10,7 +10,7 @@ import torch
 import torch.nn.functional as F
 
 from .data import build_knn_adjacency, build_tensors, labeled_pairs, normalize_adjacency, sample_pairs, set_seed
-from .model import CoReMDA, contrastive_loss, proximity_loss
+from .model import MKGMDA, contrastive_loss, proximity_loss
 
 
 @dataclass
@@ -221,7 +221,7 @@ def train_model(
     progress: Callable[[dict], None] | None = None,
     additional_proximity_exclusions: np.ndarray | None = None,
     intrinsic_similarities: tuple[np.ndarray, np.ndarray] | None = None,
-) -> tuple[CoReMDA, dict[str, torch.Tensor], list[dict[str, float]]]:
+) -> tuple[MKGMDA, dict[str, torch.Tensor], list[dict[str, float]]]:
     """Train one fold with full-graph encoding and balanced PU sampling."""
 
     device = torch.device(config.device)
@@ -285,7 +285,7 @@ def train_model(
                 train_association, mirna_similarity, disease_similarity, config.knn_k, device
             )
         )
-    model = CoReMDA(
+    model = MKGMDA(
         mirna_input_dim=tensors["x_mirna"].shape[1],
         disease_input_dim=tensors["x_disease"].shape[1],
         n_mirna=train_association.shape[0],
@@ -471,7 +471,7 @@ def train_model(
 
 
 def score_pairs(
-    model: CoReMDA,
+    model: MKGMDA,
     tensors: dict[str, torch.Tensor],
     pairs: np.ndarray,
     batch_size: int = 65536,

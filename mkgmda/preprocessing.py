@@ -1,4 +1,4 @@
-"""Leakage-controlled loading and similarity construction for CoReMDA."""
+"""Leakage-controlled loading and similarity construction for MKGMDA."""
 
 from __future__ import annotations
 
